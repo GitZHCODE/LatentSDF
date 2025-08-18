@@ -1,262 +1,190 @@
-# Latent Space Exploration for SDF Tower Shapes
+# LatentSDF – Auto-Decoder Tutorial & Explorer  
 
-A complete tutorial and interactive application for learning continuous latent space representations of 2D tower shapes using auto-decoder neural networks and Signed Distance Fields (SDFs).
+[![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/)    [![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-orange.svg)](https://www.tensorflow.org/)  [![Conda](https://img.shields.io/badge/Conda-environment-green.svg)](https://docs.conda.io/)  [![Jupyter Notebook](https://img.shields.io/badge/Jupyter-Notebook-orange.svg)](https://jupyter.org/)
 
-![Tower Shapes](https://img.shields.io/badge/Project-Latent%20SDF-blue) ![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-orange) ![Python](https://img.shields.io/badge/Python-3.7+-green)
 
-## 🏗️ Project Overview
-
-This project demonstrates how to use **auto-decoder architecture** to learn a continuous latent space of 2D tower shapes. Unlike traditional autoencoders, auto-decoders learn latent codes directly as trainable parameters alongside the decoder network, enabling smooth interpolation and generation of new shape variations.
-
-### Key Features
-
-- 🧠 **Auto-Decoder Neural Architecture**: Learn latent codes and decoder jointly
-- 🗼 **SDF Representation**: Tower shapes encoded as Signed Distance Fields
-- 🎨 **Interactive Exploration**: PathSelect app for real-time latent space navigation
-- 🎬 **Animation Generation**: Create smooth transitions between tower designs
-- 📊 **Educational Tutorial**: Step-by-step learning implementation
-
-## 📁 Project Structure
-
-```
-LantentSDF/
-├── AutoDecoder.ipynb      # Main tutorial notebook
-├── pathSelect.py          # Interactive exploration application
-├── data.json             # Tower shape SDF data
-├── README.md             # This file
-├── models/               # Exported trained models (generated)
-│   ├── decoder_model.h5
-│   ├── latent_codes.npy
-│   ├── coords_flat.npy
-│   ├── latent_range.npy
-│   └── data.json
-└── output/               # Generated SDF sequences (generated)
-```
-
-## 🚀 Quick Start
-
-### Prerequisites
-
-```bash
-pip install tensorflow numpy matplotlib pygame
-```
-
-### 1. Run the Tutorial
-
-Open and run `AutoDecoder.ipynb` to:
-- Learn the auto-decoder architecture
-- Train on tower shape data
-- Explore the learned latent space
-- Export the trained model
-
-### 2. Interactive Exploration
-
-After training, run the PathSelect application:
-
-```bash
-python pathSelect.py
-```
-
-**Controls:**
-- **Left Click**: Add path points in latent space
-- **Right Click**: Remove last path point
-- **Mouse Hover**: Preview SDF at cursor position
-- **SPACE**: Generate SDF sequence along path
-- **S**: Save generated SDFs
-- **C**: Clear all path points
-- **H**: Show help screen
-
-## 🎓 Tutorial Content
-
-### Step 1: Auto-Decoder Architecture
-
-Learn how auto-decoders work:
-- **Latent Codes**: Trainable parameters representing each shape
-- **Decoder Network**: Maps (latent_code + coordinate) → SDF_value
-- **Joint Training**: Optimize both components simultaneously
-
-### Step 2: SDF Representation
-
-Understand Signed Distance Fields:
-- **Negative values**: Inside the shape
-- **Zero**: On the boundary
-- **Positive values**: Outside the shape
-
-### Step 3: Training Process
-
-Train the model to learn latent representations:
-- Load tower shape data from JSON
-- Initialize learnable latent codes
-- Train decoder network with reconstruction loss
-- Visualize learning progress
-
-### Step 4: Latent Space Exploration
-
-Explore the learned continuous space:
-- Visualize tower positions in 2D latent space
-- Generate new tower variations by sampling
-- Create smooth interpolations between designs
-
-### Step 5: Interactive Application
-
-Export and use the trained model:
-- Save complete model package
-- Run PathSelect for real-time exploration
-- Create custom animation paths
-
-## 🏛️ Architecture Details
-
-### Auto-Decoder Network
-
-```python
-Input: [latent_code (2D) + coordinate (2D)] = 4D vector
-↓
-Dense(256, relu)
-↓
-Dense(256, relu)
-↓
-Dense(256, relu)
-↓
-Dense(256, relu)
-↓
-Dense(1, linear) → SDF value
-```
-
-### Training Objective
-
-Minimize reconstruction loss across all shapes and coordinates:
-
-```
-Loss = MSE(predicted_SDF, target_SDF)
-```
-
-Jointly optimize:
-- Latent codes: `L = {l₁, l₂, ..., lₙ}` 
-- Decoder weights: `θ`
-
-## 🎨 Key Concepts
-
-### Latent Space Properties
-
-- **Continuity**: Smooth transitions between nearby points
-- **Interpolation**: Generate intermediate shapes
-- **Generalization**: Sample novel tower variations
-- **Compactness**: High-dimensional shapes → low-dimensional codes
-
-### SDF Advantages
-
-- **Implicit Representation**: Define shapes via distance functions
-- **Resolution Independence**: Query at any coordinate
-- **Smooth Boundaries**: Continuous gradients for optimization
-- **Compact Storage**: Efficient shape encoding
-
-## 📊 Results
-
-The trained model achieves:
-- **Faithful Reconstruction**: Original towers accurately reproduced
-- **Smooth Interpolation**: Seamless transitions in latent space
-- **Novel Generation**: Create new tower variations
-- **Interactive Exploration**: Real-time latent space navigation
-
-## 🔬 Technical Features
-
-### Auto-Decoder Advantages
-
-1. **No Encoder Required**: Direct latent code optimization
-2. **Flexible Architecture**: Adapt to various shape types
-3. **Continuous Representation**: Infinite resolution sampling
-4. **Efficient Training**: Joint optimization strategy
-
-### Implementation Highlights
-
-- **TensorFlow/Keras**: Modern deep learning framework
-- **Vectorized Operations**: Efficient batch processing
-- **Interactive Visualization**: Real-time exploration tools
-- **Export Pipeline**: Complete model packaging
-
-## 🎯 Applications
-
-### Educational
-
-- **Neural Architecture Understanding**: Learn auto-decoder concepts
-- **Latent Space Visualization**: 2D space for easy comprehension
-- **Interactive Learning**: Hands-on exploration tools
-
-### Research & Development
-
-- **Shape Generation**: Create new design variations
-- **Animation Creation**: Smooth morphing sequences
-- **Design Space Exploration**: Navigate possibilities systematically
-- **Architectural Studies**: Tower design optimization
-
-### Creative Applications
-
-- **Procedural Generation**: Automated tower creation
-- **Game Assets**: Diverse building designs
-- **Architectural Visualization**: Design space exploration
-- **Art Generation**: Creative shape morphing
-
-## 🛠️ Customization
-
-### Modify Architecture
-
-```python
-# Change latent dimension
-LATENT_DIM = 3  # 3D latent space
-
-# Adjust network depth
-layers.Dense(512, activation='relu')  # Wider layers
-```
-
-### Add New Shapes
-
-1. Update `data.json` with new scalar fields
-2. Retrain the model
-3. Explore expanded latent space
-
-### Export Formats
-
-- **JSON**: SDF sequences for animation
-- **NumPy**: Raw data for analysis
-- **Images**: Visual sequences
-
-## 📚 Learning Resources
-
-### Concepts
-
-- **DeepSDF Paper**: Original auto-decoder research
-- **Implicit Neural Representations**: Modern shape encoding
-- **Latent Space Methods**: Continuous representations
-- **SDF Mathematics**: Distance field theory
-
-### Extensions
-
-- **3D Shapes**: Extend to volumetric SDFs
-- **Style Transfer**: Combine shape and appearance
-- **Conditional Generation**: Control specific attributes
-- **Multi-Modal**: Combine with other representations
-
-## 🤝 Contributing
-
-Contributions welcome! Areas for improvement:
-
-- **3D Extension**: Volumetric tower shapes
-- **Advanced Architectures**: Attention mechanisms, skip connections
-- **New Applications**: Different shape types, materials
-- **Visualization**: Enhanced interactive features
-
-## 📝 License
-
-This project is open source. Feel free to use, modify, and distribute for educational and research purposes.
-
-## 🙏 Acknowledgments
-
-- **DeepSDF**: Inspiration for auto-decoder architecture
-- **TensorFlow Team**: Excellent deep learning framework
-- **Community**: Open source tools and libraries
+A minimal, end-to-end workflow for learning a continuous latent space of 2D tower shapes using an **auto-decoder** and **Signed Distance Fields (SDFs)**. Train in a Jupyter notebook, then explore/interpolate interactively with `PathSelect.py`.  
 
 ---
 
-**Happy Learning and Exploring! 🎉**
+## Project Layout
+```
+LatentSDF/
+├── AutoDecoder.ipynb         # Train & export the model
+├── PathSelect.py             # Interactive latent-space explorer
+├── models/                   # Exported artifacts (created after training)
+│   ├── decoder_model.h5
+│   ├── latent_codes.npy
+│   ├── coords_flat.npy
+│   └── data.json
+├── output/                   # Generated SDF sequences (created at runtime)
+├── environment.yaml          # Conda environment (provided)
+└── README.md
+```
 
-*Discover the beauty of continuous shape spaces through interactive latent exploration.*
+---
+
+## Setup (Conda, from environment.yaml)
+```bash
+conda env create -f environment.yaml
+conda activate latent-sdf
+```
+> If your environment has a different name in `environment.yaml`, activate that instead.  
+
+---
+
+## Quick Start
+
+### 1) Train & Export (Notebook)
+Open `AutoDecoder.ipynb` and run all cells to:
+- learn latent codes and the decoder jointly,
+- visualize SDF reconstruction and interpolation,
+- export the model files to `models/`.
+
+### 2) Explore Interactively
+After exporting, run:
+```bash
+python PathSelect.py
+```
+**Controls**  
+- Left Click: add path points in latent space  
+- Right Click: remove last point  
+- Hover: preview SDF at cursor  
+- Space: generate SDF sequence  
+- S: save sequence to `output/`  
+- C: clear path  
+- H: toggle help  
+
+---
+
+## How It Works
+
+### Auto‑decoder: trainable latent codes
+Each training sample has its own latent vector that is optimized together with the decoder weights.
+```python
+# num_shapes must match your dataset
+LATENT_DIM = 2      # 2D latent space for visualization
+COORD_DIM  = 2      # (x, y)
+INPUT_DIM  = LATENT_DIM + COORD_DIM
+NUM_SHAPES = num_shapes
+
+# Example initialization (Keras/TF)
+latent_codes = tf.Variable(
+    tf.random.normal([NUM_SHAPES, LATENT_DIM]), name="latent_codes"
+)
+```
+
+### Decoder network (your current architecture)
+The MLP maps concatenated `[latent_code(2), x, y]` → SDF value.
+```python
+from tensorflow import keras
+from tensorflow.keras import layers
+
+# Auto-decoder hyperparameters
+LATENT_DIM = 2      # 2D latent space for visualization
+COORD_DIM  = 2      # 2D spatial coordinates (x, y)
+INPUT_DIM  = LATENT_DIM + COORD_DIM  # Combined input size
+NUM_SHAPES = num_shapes
+
+def create_decoder():
+    """
+    Decoder Network Architecture
+
+    Input: [latent_code (2D) + coordinate (2D)] = 4D vector
+    Output: SDF value at that coordinate
+
+    The network learns to decode latent representations into geometry
+    """
+    decoder = keras.Sequential([
+        layers.Input(shape=(INPUT_DIM,)),
+
+        # Deep network to capture complex shape relationships
+        layers.Dense(128, activation='relu'),
+        layers.Dense(128, activation='relu'),
+        layers.Dense(128, activation='relu'),
+        layers.Dense(128, activation='relu'),
+        layers.Dense(128, activation='relu'),
+        layers.Dense(128, activation='relu'),
+
+        # Output single SDF value
+        layers.Dense(1, activation='linear')
+    ])
+    return decoder
+
+# Create decoder network
+decoder = create_decoder()
+print("Decoder Architecture:")
+decoder.summary()
+```
+
+### Training loop (conceptual)
+You optimize both `decoder` weights and `latent_codes` to fit ground‑truth SDF samples.
+```python
+optimizer = tf.keras.optimizers.Adam(1e-3)
+
+@tf.function
+def train_step(batch_coords, batch_sdf, batch_indices):
+    # batch_indices selects the latent code for each sample
+    z = tf.gather(latent_codes, batch_indices)                  # [B, LATENT_DIM]
+    x = tf.concat([z, batch_coords], axis=-1)                   # [B, LATENT_DIM+2]
+    pred = decoder(x)                                           # [B, 1]
+
+    loss = tf.reduce_mean(tf.square(pred - batch_sdf))          # L2 SDF loss
+    # Optional: regularize latent norms to keep space well‑behaved
+    loss += 1e-4 * tf.reduce_mean(tf.square(z))
+
+    # Compute and apply gradients for both decoder and latent codes
+    with tf.GradientTape() as tape:
+        pass  # (left minimal on purpose for brevity)
+```
+> Implement your own batching & gradient updates in the notebook; the key idea is to backprop through both the decoder and the selected latent codes.
+
+### Interpolation in latent space
+Linearly mix latent codes to morph shapes; `PathSelect.py` lets you draw a path and export frames.
+```python
+def lerp(z0, z1, t):
+    return (1.0 - t) * z0 + t * z1
+```
+
+### Modify layers quickly
+Experiment with depth/width or activations to trade off smoothness vs. detail.
+```python
+# Change widths
+W = 256
+decoder = keras.Sequential([
+    layers.Input(shape=(INPUT_DIM,)),
+    layers.Dense(W, activation='relu'),
+    layers.Dense(W, activation='relu'),
+    layers.Dense(W, activation='relu'),
+    layers.Dense(1)
+])
+
+# Swap activations (e.g., 'tanh' for smoother fields)
+# layers.Dense(128, activation='tanh')
+
+# Add normalization / dropout (optional)
+# layers.LayerNormalization(), layers.Dropout(0.1)
+```
+
+
+By drawing a path in latent space, you morph between shapes and export sequences.  
+
+---
+
+## Expected Model Files
+Needed in `models/`:
+- `decoder_model.h5`  
+- `latent_codes.npy`  
+- `coords_flat.npy`  
+- `data.json`  
+
+---
+
+## Troubleshooting
+- TensorFlow/Keras version mismatches may break `h5` loads. Re-exporting usually fixes it.  
+- Ensure all four model files are present before launching `PathSelect.py`.  
+
+---
+
+## License
+Open source for education and research.  
