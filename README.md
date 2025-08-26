@@ -40,6 +40,7 @@ Open `AutoDecoder.ipynb` and run all cells to:
 - learn latent codes and the decoder jointly,
 - visualize SDF reconstruction and interpolation,
 - export the model files to `models/`.
+![loadjson](Assets/output.png)
 
 ### 2) Explore Interactively
 After exporting, run:
