@@ -179,7 +179,8 @@ decoder = keras.Sequential([
 
 By drawing a path in latent space, you morph between shapes and export sequences.  
 
-![loadjson](Assets/2025-07-03 172624.png)
+[![LatentSDF sample](https://raw.githubusercontent.com/GitZHCODE/LatentSDF/main/Assets/2025-07-03%20172624.png)](https://github.com/GitZHCODE/LatentSDF/blob/main/Assets/2025-07-03%20172624.png)
+
 ---
 
 ## Expected Model Files
