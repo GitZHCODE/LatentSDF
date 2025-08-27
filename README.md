@@ -73,6 +73,7 @@ latent_codes = tf.Variable(
     tf.random.normal([NUM_SHAPES, LATENT_DIM]), name="latent_codes"
 )
 ```
+![loadjson](Assets/output.png)
 
 ### Decoder network (your current architecture)
 The MLP maps concatenated `[latent_code(2), x, y]` → SDF value.
@@ -139,6 +140,15 @@ def train_step(batch_coords, batch_sdf, batch_indices):
 ```
 > Implement your own batching & gradient updates in the notebook; the key idea is to backprop through both the decoder and the selected latent codes.
 
+![loadjson](Assets/output2.png)
+*Figure 1: Training Epoch 1/500.*
+
+![loadjson](Assets/output3.png)
+*Figure 2: Training Epoch 500/500.*
+
+![loadjson](Assets/output4.png)
+*Figure 1: Training Result. Tower shape variations across latent space*
+
 ### Interpolation in latent space
 Linearly mix latent codes to morph shapes; `PathSelect.py` lets you draw a path and export frames.
 ```python
@@ -169,6 +179,7 @@ decoder = keras.Sequential([
 
 By drawing a path in latent space, you morph between shapes and export sequences.  
 
+![loadjson](Assets/2025-07-03 172624.png)
 ---
 
 ## Expected Model Files
