@@ -27,7 +27,7 @@ LatentSDF/
 ## Setup (Conda, from environment.yaml)
 ```bash
 conda env create -f environment.yaml
-conda activate latent-sdf
+conda activate tf-cpu
 ```
 > If your environment has a different name in `environment.yaml`, activate that instead.  
 
