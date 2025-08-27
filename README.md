@@ -141,10 +141,13 @@ def train_step(batch_coords, batch_sdf, batch_indices):
 > Implement your own batching & gradient updates in the notebook; the key idea is to backprop through both the decoder and the selected latent codes.
 
 ![loadjson](Assets/output2.png)
+*Figure 1: Training Epoch 1/500.*
 
 ![loadjson](Assets/output3.png)
+*Figure 2: Training Epoch 500/500.*
 
 ![loadjson](Assets/output4.png)
+*Figure 1: Training Result. Tower shape variations across latent space*
 
 ### Interpolation in latent space
 Linearly mix latent codes to morph shapes; `PathSelect.py` lets you draw a path and export frames.
