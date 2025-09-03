@@ -336,7 +336,7 @@ class PathSelectApp:
         self.model_loaded = False
         self.last_error = None  # Store last error for display
         self.path_points = []
-        self.num_frames = 10
+        self.num_frames = 40
         self.generated_sdfs = []
         self.current_sdf = None
         self.show_help = False
